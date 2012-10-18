@@ -282,7 +282,7 @@ if ($response->is_success) {
         print $webcontent;
     }
     if ($response->header('Content-Type') =~ m/text\/html/) {
-        nagios_exit($nginx,"CRITICAL", "We have a response page for our request, but it's an HTML page, quite certainly not the status report of php-fpm");
+        nagios_exit($nginx,"CRITICAL", "We have a response page for our request, but it's an HTML page, quite certainly not the status report of nginx");
     }
     # example of response content expected:
     #Active connections: 10 
