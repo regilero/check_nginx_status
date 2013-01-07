@@ -382,7 +382,11 @@ if ($response->is_success) {
         $RequestsNew = $NbRequests-$LastNbRequests;
         $ReqPerSec = $RequestsNew/$elapsed;
         # get finer value
-        my $ReqPerConn = $ReqPerSec/$ConnPerSec;
+        if ( $ConnPerSec!=0 ) {
+          my $ReqPerConn = $ReqPerSec/$ConnPerSec;
+        } else {
+          my $ReqPerConn = 0;
+        }
     }
     if (defined ($o_debug)) {
         print ("\nDebug: data computed\n");
