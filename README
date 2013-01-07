@@ -8,6 +8,11 @@ You can use this script to draw some graphics. Details for centreon graphics are
 Nginx Monitor for Nagios version 0.9
 GPL licence, (c)2012 Leroy Regis
 
+KNOWN BUGS:
+===========
+
+You may need to adapt the nagios labraries path on the script (currently /usr/local/nagios/libexec), line 18 of the script. It as been reported on different places such as /usr/local/libexec/nagios or /usr/share/nagios/libexec.
+
 Script Documentation:
 =====================
 
