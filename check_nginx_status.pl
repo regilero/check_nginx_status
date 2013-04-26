@@ -395,8 +395,8 @@ if ($response->is_success) {
     $InfoData = sprintf (" %.3f sec. response time, Active: %d (Writing: %d Reading: %d Waiting: %d)"
                  . " ReqPerSec: %.3f ConnPerSec: %.3f ReqPerConn: %.3f"
                  ,$timeelapsed,$ActiveConn,$Writing,$Reading,$Waiting,$ReqPerSec,$ConnPerSec,$ReqPerConn);
-    $PerfData = sprintf ("Writing=%d;Reading=%d;Waiting=%d;Active=%d;"
-                 . "ReqPerSec=%f;ConnPerSec=%f;ReqPerConn=%f"
+    $PerfData = sprintf ("Writing=%d;;;; Reading=%d;;;; Waiting=%d;;;; Active=%d;;;; "
+                 . "ReqPerSec=%f;;;; ConnPerSec=%f;;;; ReqPerConn=%f;;;;"
                  ,($Writing),($Reading),($Waiting),($ActiveConn)
                  ,($ReqPerSec),($ConnPerSec),($ReqPerConn));
     # first all critical exists by priority
