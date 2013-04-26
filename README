@@ -3,7 +3,6 @@ CHECK_NGINX_STATUS
 
 Nagios check checking the nginx_status page report from nginx. Tracking Active connections processes, request per second,
  connections per seconds, Connections status.
-You can use this script to draw some graphics. Details for centreon graphics are available in the CENTREON_GRAPHICS.txt doc
 
 Nginx Monitor for Nagios version 0.9
 GPL licence, (c)2012 Leroy Regis
