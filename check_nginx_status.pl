@@ -22,7 +22,7 @@ use utils qw($TIMEOUT);
 my $Version='0.9';
 my $Name=$0;
 
-my $o_host =          undef;  # hostname 
+my $o_host =          undef;  # hostname
 my $o_help=           undef;  # want some help ?
 my $o_port=           undef;  # port
 my $o_url =           undef;  # url to use, if not the default
@@ -124,7 +124,7 @@ Note :
   - REQ_PER_SEC: Average number of request per second between this check and the previous one
   - CONN_PER_SEC: Average number of connections per second between this check and the previous one
 
-Examples: 
+Examples:
 
   This one will generate WARNING and CRITICIAL alerts if you reach 10 000 or 20 000 active connection; or
   100 or 200 request per second; or 200 or 300 connections per second
@@ -136,7 +136,7 @@ check_nginx_status.pl -H 10.0.0.10 -s mydomain.example.com -t 8 -w 10,-1,-1 -c 2
   theses two equivalents will not generate any alert (if the nginx_status page is reachable) but could be used for graphics
 check_nginx_status.pl -H 10.0.0.10 -s mydomain.example.com -w -1,-1,-1 -c -1,-1,-1
 check_nginx_status.pl -H 10.0.0.10 -s mydomain.example.com
- 
+
 EOT
 }
 
@@ -159,15 +159,15 @@ sub check_options {
       't:i'   => \$o_timeout,      'timeout:i'     => \$o_timeout,
     );
 
-    if (defined ($o_help)) { 
+    if (defined ($o_help)) {
         help();
         nagios_exit($nginx,"UNKNOWN","leaving","",1);
     }
-    if (defined($o_version)) { 
+    if (defined($o_version)) {
         show_versioninfo();
         nagios_exit($nginx,"UNKNOWN","leaving","",1);
     };
-    
+
     if (defined($o_warn_thresold)) {
         ($o_warn_a_level,$o_warn_rps_level,$o_warn_cps_level) = split(',', $o_warn_thresold);
     }
@@ -179,19 +179,19 @@ sub check_options {
         print("\nCritical ($o_crit_thresold) => : Active: $o_crit_a_level ReqPerSec: $o_crit_rps_level ConnPerSec : $o_crit_cps_level\n");
     }
     if ((defined($o_warn_a_level) && defined($o_crit_a_level)) &&
-         (($o_warn_a_level != -1) && ($o_crit_a_level != -1) && ($o_warn_a_level >= $o_crit_a_level)) ) { 
+         (($o_warn_a_level != -1) && ($o_crit_a_level != -1) && ($o_warn_a_level >= $o_crit_a_level)) ) {
         nagios_exit($nginx,"UNKNOWN","Check warning and critical values for Active Process (1st part of thresold), warning level must be < crit level!");
     }
     if ((defined($o_warn_rps_level) && defined($o_crit_rps_level)) &&
-         (($o_warn_rps_level != -1) && ($o_crit_rps_level != -1) && ($o_warn_rps_level >= $o_crit_rps_level)) ) { 
+         (($o_warn_rps_level != -1) && ($o_crit_rps_level != -1) && ($o_warn_rps_level >= $o_crit_rps_level)) ) {
         nagios_exit($nginx,"UNKNOWN","Check warning and critical values for ReqPerSec (2nd part of thresold), warning level must be < crit level!");
     }
     if ((defined($o_warn_cps_level) && defined($o_crit_cps_level)) &&
-         (($o_warn_cps_level != -1) && ($o_crit_cps_level != -1) && ($o_warn_cps_level >= $o_crit_cps_level)) ) { 
+         (($o_warn_cps_level != -1) && ($o_crit_cps_level != -1) && ($o_warn_cps_level >= $o_crit_cps_level)) ) {
         nagios_exit($nginx,"UNKNOWN","Check warning and critical values for ConnPerSec (3rd part of thresold), warning level must be < crit level!");
     }
     # Check compulsory attributes
-    if (!defined($o_host)) { 
+    if (!defined($o_host)) {
         print_usage();
         nagios_exit($nginx,"UNKNOWN","-H host argument required");
     }
@@ -202,8 +202,8 @@ sub check_options {
 check_options();
 
 my $override_ip = $o_host;
-my $ua = LWP::UserAgent->new( 
-  protocols_allowed => ['http', 'https'], 
+my $ua = LWP::UserAgent->new(
+  protocols_allowed => ['http', 'https'],
   timeout => $o_timeout
 );
 # we need to enforce the HTTP request is made on the Nagios Host IP and
@@ -285,19 +285,19 @@ if ($response->is_success) {
         nagios_exit($nginx,"CRITICAL", "We have a response page for our request, but it's an HTML page, quite certainly not the status report of nginx");
     }
     # example of response content expected:
-    #Active connections: 10 
+    #Active connections: 10
     #server accepts handled requests
-    #38500 38500 50690 
-    #Reading: 5 Writing: 5 Waiting: 0 
+    #38500 38500 50690
+    #Reading: 5 Writing: 5 Waiting: 0
 
-    # number of all open connections including connections to backends 
+    # number of all open connections including connections to backends
     my $ActiveConn = 0;
     if($webcontent =~ m/Active connections: (.*?)\n/) {
         $ActiveConn = $1;
         # triming
         $ActiveConn =~ s/^\s+|\s+$//g;
     }
-    
+
 
     # 3 counters with a space: accepted conn, handled conn and number of requests
     my $counters = '';
@@ -315,10 +315,10 @@ if ($response->is_success) {
         $HandledConn =~ s/^\s+|\s+$//g;
         $NbRequests =~ s/^\s+|\s+$//g;
     }
-    
+
     # nginx reads request header
     my $Reading = 0;
-    # nginx reads request body, processes request, or writes response to a client 
+    # nginx reads request body, processes request, or writes response to a client
     my $Writing = 0;
     # keep-alive connections, actually it is active - (reading + writing)
     my $Waiting = 0;
@@ -331,7 +331,7 @@ if ($response->is_success) {
         $Writing =~ s/^\s+|\s+$//g;
         $Waiting =~ s/^\s+|\s+$//g;
     }
-    
+
     # Debug
     if (defined ($o_debug)) {
         print ("\nDEBUG Parse results => Active :" . $ActiveConn . "\nAcceptedConn :" . $AcceptedConn . "\nHandledConn :" . $HandledConn . "\nNbRequests :".$NbRequests . "\nReading :" .$Reading . "\nWriting :" . $Writing . "\nWaiting :" . $Waiting . "\n");
@@ -339,7 +339,7 @@ if ($response->is_success) {
 
     my $TempFile = $TempPath.$o_host.'_check_nginx_status'.md5_hex($url);
     my $FH;
-    
+
     my $LastTime = 0;
     my $LastAcceptedConn = 0;
     my $LastHandledConn = 0;
@@ -356,15 +356,15 @@ if ($response->is_success) {
             print (" LastTime: $LastTime LastAcceptedConn: $LastAcceptedConn LastHandledConn: $LastHandledConn LastNbRequests: $LastNbRequests \n");
         }
     }
-    
+
     open ($FH, '>'.$TempFile) or nagios_exit($nginx,"UNKNOWN","unable to write temporary data in :".$TempFile);
-    #print $FH (@Time),"\n"; 
-    print $FH "$Time\n"; 
+    #print $FH (@Time),"\n";
+    print $FH "$Time\n";
     print $FH "$AcceptedConn\n";
     print $FH "$HandledConn\n";
     print $FH "$NbRequests\n";
     close ($FH);
-    
+
     my $ConnPerSec = 0;
     my $ReqPerSec = 0;
     my $RequestsNew = 0;
@@ -395,8 +395,8 @@ if ($response->is_success) {
     $InfoData = sprintf (" %.3f sec. response time, Active: %d (Writing: %d Reading: %d Waiting: %d)"
                  . " ReqPerSec: %.3f ConnPerSec: %.3f ReqPerConn: %.3f"
                  ,$timeelapsed,$ActiveConn,$Writing,$Reading,$Waiting,$ReqPerSec,$ConnPerSec,$ReqPerConn);
-    $PerfData = sprintf ("Writing=%d;Reading=%d;Waiting=%d;Active=%d;"
-                 . "ReqPerSec=%f;ConnPerSec=%f;ReqPerConn=%f"
+    $PerfData = sprintf ("Writing=%d;;;; Reading=%d;;;; Waiting=%d;;;; Active=%d;;;; "
+                 . "ReqPerSec=%f;;;; ConnPerSec=%f;;;; ReqPerConn=%f;;;;"
                  ,($Writing),($Reading),($Waiting),($ActiveConn)
                  ,($ReqPerSec),($ConnPerSec),($ReqPerConn));
     # first all critical exists by priority
@@ -419,7 +419,7 @@ if ($response->is_success) {
     if (defined($o_warn_cps_level) && (-1!=$o_warn_cps_level) && ($ConnPerSec >= $o_warn_cps_level)) {
         nagios_exit($nginx,"WARNING", "Connection per second ratio is high " . $InfoData,$PerfData);
     }
-    
+
     nagios_exit($nginx,"OK",$InfoData,$PerfData);
 
 } else {
