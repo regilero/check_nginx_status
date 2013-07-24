@@ -235,7 +235,7 @@ if (defined($o_servername)) {
     if (!defined($o_port)) {
         $url = $proto . $o_servername . $o_url;
     } else {
-        $url = $proto . $o_servername . ':' . $o_url;
+        $url = $proto . $o_servername . ':' . $o_port . $o_url;
     }
 } else {
     if (!defined($o_port)) {
