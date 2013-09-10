@@ -369,7 +369,10 @@ if ($response->is_success) {
     my $ReqPerSec = 0;
     my $RequestsNew = 0;
     # by default the average
-    my $ReqPerConn = $NbRequests/$AcceptedConn;
+    my $ReqPerConn = 0;
+    if ($AcceptedConn > 0) {
+        $ReqPerConn = $NbRequests/$AcceptedConn;
+    }
     my $elapsed = $Time  - $LastTime ;
     if (defined ($o_debug)) {
         print ("\nDebug: pre-computation\n");
@@ -377,7 +380,7 @@ if ($response->is_success) {
     }
     # check only if the counters may have been incremented
     # but not if it may have been too much incremented
-    if ( $elapsed < $MaxTimeDif) {
+    if ( ($elapsed < $MaxTimeDif) && ($elapsed != 0) ) {
         $ConnPerSec = ($AcceptedConn-$LastAcceptedConn)/$elapsed;
         $RequestsNew = $NbRequests-$LastNbRequests;
         $ReqPerSec = $RequestsNew/$elapsed;
