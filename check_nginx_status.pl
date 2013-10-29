@@ -12,10 +12,11 @@ use Getopt::Long;
 use LWP::UserAgent;
 use Time::HiRes qw(gettimeofday tv_interval);
 use Digest::MD5 qw(md5 md5_hex);
+use FindBin;
 
 
 # Nagios specific
-use lib "/usr/local/nagios/libexec";
+use lib $FindBin::Bin;
 use utils qw($TIMEOUT);
 
 # Globals
