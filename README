@@ -7,10 +7,17 @@ Nagios check checking the nginx_status page report from nginx. Tracking Active c
 Nginx Monitor for Nagios version 0.9
 GPL licence, (c)2012 Leroy Regis
 
-KNOWN BUGS:
+Known Bugs:
 ===========
 
 You may need to adapt the nagios labraries path on the script (currently /usr/local/nagios/libexec), line 18 of the script. It as been reported on different places such as /usr/local/libexec/nagios or /usr/share/nagios/libexec.
+
+Graphing Results
+================
+
+This check is compatible with performance data analysis for passive monitoring (RRD based graphs). So the script output is available for graph tools.
+@maethor made a PNP4Nagios template available in this Gist:
+* https://gist.github.com/maethor/8714514
 
 Script Documentation:
 =====================
@@ -69,3 +76,4 @@ check_nginx_status.pl -H 10.0.0.10 -s mydomain.example.com -w -1,-1,-1 -c -1,-1,
 check_nginx_status.pl -H 10.0.0.10 -s mydomain.example.com
 
 Licence: GNU GPL v3
+
