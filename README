@@ -10,7 +10,7 @@ GPL licence, (c)2012 Leroy Regis
 Known Bugs:
 ===========
 
-You may need to adapt the nagios labraries path on the script (currently /usr/local/nagios/libexec), line 18 of the script. It as been reported on different places such as /usr/local/libexec/nagios or /usr/share/nagios/libexec.
+You may need to adapt the nagios libraries path on the script (currently /usr/local/nagios/libexec), line 18 of the script. It as been reported on different places such as /usr/local/libexec/nagios or /usr/share/nagios/libexec.
 
 Graphing Results
 ================
