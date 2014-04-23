@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # check_nginx_status.pl
-# Version : 0.9
+# Version : 0.10
 # Author  : regis.leroy at makina-corpus.com
 # Licence : GPL - http://www.fsf.org/licenses/gpl.txt
 #
