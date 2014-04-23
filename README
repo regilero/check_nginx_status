@@ -4,7 +4,7 @@ CHECK_NGINX_STATUS
 Nagios check checking the nginx_status page report from nginx. Tracking Active connections processes, request per second,
  connections per seconds, Connections status.
 
-Nginx Monitor for Nagios version 0.9
+Nginx Monitor for Nagios version 0.10
 GPL licence, (c)2012 Leroy Regis
 
 Known Bugs:
