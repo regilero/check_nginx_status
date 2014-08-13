@@ -11,7 +11,7 @@ GPL licence, (c)2012 Leroy Regis
 
 You may need to adapt the nagios libraries path on the script (currently /usr/local/nagios/libexec), line 18 of the script. It as been reported on different places such as /usr/local/libexec/nagios or /usr/share/nagios/libexec.
 
-Check also the issues list [here][https://github.com/regilero/check_nginx_status/issues]
+Check also the issues list [here](https://github.com/regilero/check_nginx_status/issues)
 
 ## Graphing Results
 
@@ -67,13 +67,16 @@ This check is compatible with performance data analysis for passive monitoring (
 ## Examples: 
 
 This one will generate WARNING and CRITICIAL alerts if you reach 10 000 or 20 000 active connection; or
-100 or 200 request per second; or 200 or 300 connections per second
+100 or 200 request per second; or 200 or 300 connections per second:
+
     check_nginx_status.pl -H 10.0.0.10 -u /foo/nginx_status -s mydomain.example.com -t 8 -w 10000,100,200 -c 20000,200,300
 
-This will generate WARNING and CRITICAL alerts only on the number of active connections (with low numbers for nginx)
+This will generate WARNING and CRITICAL alerts only on the number of active connections (with low numbers for nginx):
+
     check_nginx_status.pl -H 10.0.0.10 -s mydomain.example.com -t 8 -w 10,-1,-1 -c 20,-1,-1
 
-Theses two equivalents will not generate any alert (if the nginx_status page is reachable) but could be used for graphics
+Theses two equivalents will not generate any alert (if the nginx_status page is reachable) but could be used for graphics:
+
     check_nginx_status.pl -H 10.0.0.10 -s mydomain.example.com -w -1,-1,-1 -c -1,-1,-1
     check_nginx_status.pl -H 10.0.0.10 -s mydomain.example.com
 
