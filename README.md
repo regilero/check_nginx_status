@@ -37,6 +37,8 @@ This check is compatible with performance data analysis for passive monitoring (
        ServerName, (host header of HTTP request) use it if you specified an IP in -H to match the good Virtualhost in your target
     -S, --ssl
        Wether we should use HTTPS instead of HTTP
+    --disable-sslverifyhostname
+       Disable SSL hostname verification
     -U, --user=user
        Username for basic auth
     -P, --pass=PASS
