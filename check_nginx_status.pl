@@ -43,6 +43,7 @@ my $o_crit_thresold=  undef;  # critical thresolds entry
 my $o_debug=          undef;  # debug mode
 my $o_servername=     undef;  # ServerName (host header in http request)
 my $o_https=          undef;  # SSL (HTTPS) mode
+my $o_disable_sslverifyhostname = 0;
 
 my $TempPath = '/tmp/';     # temp path
 my $MaxTimeDif = 60*30;   # Maximum uptime difference (seconds), default 30 minutes
@@ -98,6 +99,8 @@ sub help {
    ServerName, (host header of HTTP request) use it if you specified an IP in -H to match the good Virtualhost in your target
 -S, --ssl
    Wether we should use HTTPS instead of HTTP
+--disable-sslverifyhostname
+   Disable SSL hostname verification
 -U, --user=user
    Username for basic auth
 -P, --pass=PASS
@@ -158,6 +161,7 @@ sub check_options {
       'w:s'   => \$o_warn_thresold,'warn:s'        => \$o_warn_thresold,
       'c:s'   => \$o_crit_thresold,'critical:s'    => \$o_crit_thresold,
       't:i'   => \$o_timeout,      'timeout:i'     => \$o_timeout,
+      'disable-sslverifyhostname' => \$o_disable_sslverifyhostname,
     );
 
     if (defined ($o_help)) {
@@ -207,6 +211,11 @@ my $ua = LWP::UserAgent->new(
   protocols_allowed => ['http', 'https'],
   timeout => $o_timeout
 );
+
+if ( $o_disable_sslverifyhostname ) {
+  $ua->ssl_opts( 'verify_hostname' => 0 );
+}
+
 # we need to enforce the HTTP request is made on the Nagios Host IP and
 # not on the DNS related IP for that domain
 @LWP::Protocol::http::EXTRA_SOCK_OPTS = ( PeerAddr => $override_ip );
