@@ -20,7 +20,7 @@ use lib $FindBin::Bin;
 use utils qw($TIMEOUT);
 
 # Globals
-my $Version='0.9';
+my $Version='0.10';
 my $Name=$0;
 
 my $o_host =          undef;  # hostname
