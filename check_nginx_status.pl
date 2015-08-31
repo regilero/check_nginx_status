@@ -6,7 +6,7 @@
 #
 # help : ./check_nginx_status.pl -h
 #
-# issues & updates: http://github.com/regilero/check_inginx_status
+# issues & updates: http://github.com/regilero/check_nginx_status
 use strict;
 use Getopt::Long;
 use LWP::UserAgent;
