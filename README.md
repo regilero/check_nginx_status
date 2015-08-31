@@ -21,6 +21,11 @@ This check is compatible with performance data analysis for passive monitoring (
 
 * https://gist.github.com/maethor/8714514
 
+## Dependencies
+
+ * Perl
+ * the `utils.pm` nagios perl library. Either in a perl standard PATH (@see http://stackoverflow.com/a/2526809) or in the same directory as the script.
+
 ## Script Documentation:
 
 
