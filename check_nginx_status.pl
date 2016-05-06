@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl -w
 # check_nginx_status.pl
 # Version : 0.10
 # Author  : regis.leroy at makina-corpus.com
@@ -20,7 +20,7 @@ use lib $FindBin::Bin;
 use utils qw($TIMEOUT);
 
 # Globals
-my $Version='0.10';
+my $Version='0.20';
 my $Name=$0;
 
 my $o_host =          undef;  # hostname
@@ -408,10 +408,41 @@ if ($response->is_success) {
     $InfoData = sprintf (" %.3f sec. response time, Active: %d (Writing: %d Reading: %d Waiting: %d)"
                  . " ReqPerSec: %.3f ConnPerSec: %.3f ReqPerConn: %.3f"
                  ,$timeelapsed,$ActiveConn,$Writing,$Reading,$Waiting,$ReqPerSec,$ConnPerSec,$ReqPerConn);
-    $PerfData = sprintf ("Writing=%d;;;; Reading=%d;;;; Waiting=%d;;;; Active=%d;;;; "
-                 . "ReqPerSec=%f;;;; ConnPerSec=%f;;;; ReqPerConn=%f;;;;"
+                 
+    # Manage warn and crit values for the perfdata
+	 my $p_warn_a_level = "$o_warn_a_level";
+	 my $p_crit_a_level = "$o_crit_a_level";
+	 my $p_warn_rps_level = "$o_warn_rps_level";
+	 my $p_crit_rps_level = "$o_crit_rps_level";
+	 my $p_warn_cps_level = "$o_warn_cps_level";
+	 my $p_crit_cps_level = "$o_crit_cps_level";             
+
+	 if ($p_warn_a_level == "-1") {
+	     $p_warn_a_level = "";
+	 }
+	 if ($p_crit_a_level == "-1") {
+	     $p_crit_a_level = "";
+	 }
+	 if ($p_warn_rps_level == "-1") {
+	     $p_warn_rps_level = "";
+	 }
+	 if ($p_crit_rps_level == "-1") {
+	     $p_crit_rps_level = "";
+	 }
+	 if ($p_warn_cps_level == "-1") {
+	     $p_warn_cps_level = "";
+	 }
+	 if ($p_crit_cps_level == "-1") {
+	     $p_crit_cps_level = "";
+	 }
+                 
+    $PerfData = sprintf ("Writing=%d;;;; Reading=%d;;;; Waiting=%d;;;; Active=%d;%s;%s;; "
+                 . "ReqPerSec=%f;%s;%s;; ConnPerSec=%f;%s;%s;; ReqPerConn=%f;;;;"
                  ,($Writing),($Reading),($Waiting),($ActiveConn)
-                 ,($ReqPerSec),($ConnPerSec),($ReqPerConn));
+                 ,($p_warn_a_level),($p_crit_a_level)
+                 ,($ReqPerSec),($p_warn_rps_level),($p_crit_rps_level)
+                 ,($ConnPerSec),($p_warn_cps_level),($p_crit_cps_level)
+                 ,($ReqPerConn));
     # first all critical exists by priority
     if (defined($o_crit_a_level) && (-1!=$o_crit_a_level) && ($ActiveConn >= $o_crit_a_level)) {
         nagios_exit($nginx,"CRITICAL", "Active Connections are critically high " . $InfoData,$PerfData);
