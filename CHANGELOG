@@ -1,0 +1,12 @@
+## Version 0.20 (current version)
+ * @ddurieux: perl shebang using env - 2016-05
+ * @ddurieux: add thresolds in perfdata - 2016-05
+ * @fager: Allows ssl name verification bypass, `--disable-sslverifyhostname` option added - 2014-09
+ 
+## version 0.10
+ * @Napsty: Fixing nagios library static path issue - 2013-09
+ * @regilero: fix some division by zero issues
+ * @slawekp: issue on port parameter - 2013-05
+ * @santtu: perfdata fixs (empty thresolds)
+ 
+## initial version
