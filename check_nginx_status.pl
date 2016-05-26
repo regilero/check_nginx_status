@@ -389,7 +389,8 @@ if ($response->is_success) {
     }
     # check only if the counters may have been incremented
     # but not if it may have been too much incremented
-    if ( ($elapsed < $MaxTimeDif) && ($elapsed != 0) ) {
+    # if nginx was restarted ($NbRequests is now lower than previous value), just skip
+    if ( ($elapsed < $MaxTimeDif) && ($elapsed != 0) && ($NbRequests >= $LastNbRequests) ) {
         $ConnPerSec = ($AcceptedConn-$LastAcceptedConn)/$elapsed;
         $RequestsNew = $NbRequests-$LastNbRequests;
         $ReqPerSec = $RequestsNew/$elapsed;
