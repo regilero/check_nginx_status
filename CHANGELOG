@@ -1,4 +1,5 @@
 ## Version 0.20 (current version)
+ * @tatref: bugfix: negative values after nginx restart (#13) - 2016-05
  * @ddurieux: perl shebang using env - 2016-05
  * @ddurieux: add thresolds in perfdata - 2016-05
  * @fager: Allows ssl name verification bypass, `--disable-sslverifyhostname` option added - 2014-09
