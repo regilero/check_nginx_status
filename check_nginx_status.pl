@@ -1,4 +1,4 @@
-#!/usr/bin/env perl -w
+#!/usr/bin/env perl
 # check_nginx_status.pl
 # Author  : regis.leroy at makina-corpus.com
 # Licence : GPL - http://www.fsf.org/licenses/gpl.txt
@@ -6,6 +6,7 @@
 # help : ./check_nginx_status.pl -h
 #
 # issues & updates: http://github.com/regilero/check_nginx_status
+use warnings;
 use strict;
 use Getopt::Long;
 use LWP::UserAgent;
