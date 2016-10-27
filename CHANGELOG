@@ -1,4 +1,5 @@
 ## Version 0.20 (current version)
+ * @prupert: bugfix: reduce shebang arguments, move -w to use warnings (pr #18, fix #15 & #16) - 2016-10
  * @tatref: bugfix: negative values after nginx restart (#13) - 2016-05
  * @ddurieux: perl shebang using env - 2016-05
  * @ddurieux: add thresolds in perfdata - 2016-05
